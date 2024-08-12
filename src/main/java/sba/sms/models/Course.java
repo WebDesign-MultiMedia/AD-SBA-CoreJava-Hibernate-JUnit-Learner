@@ -110,11 +110,10 @@ public class Course {
     }
 
     //Helper method
-public boolean hasStudent(Student student){
+    public boolean hasStudent(Student student){
         return this.students.contains(student);
-}
+    }
 
 
 
 }
-
