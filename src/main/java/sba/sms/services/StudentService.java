@@ -86,9 +86,19 @@ public class StudentService implements StudentI {
 
     @Override
     public boolean validateStudent(String email, String password) {
+        if (email == null || email.isEmpty() || password == null || password.isEmpty()) {
+            return false;
+        }
+
         Student s = getStudentByEmail(email);
-        return s != null && s.getPassword().equals(password);
+        if (s != null && s.getPassword() != null) {
+            return s.getPassword().equals(password);
+        }
+        return false;
     }
+
+
+
 
     @Override
     public void registerStudentToCourse(String email, int courseId) {
@@ -98,11 +108,16 @@ public class StudentService implements StudentI {
         try{
             tx = s.beginTransaction();
             Student student = getStudentByEmail(email);
-            Student.addCourse(courseService.getCourseById(courseId));
-            s.merge(student);
-            tx.commit();
-        } catch (HibernateException exception){
-            if(tx != null) tx.rollback();
+            Course course = courseService.getCourseById(courseId);
+            if (student != null && course != null) {
+                student.addCourse(course);  // Ensure addCourse is an instance method
+                s.merge(student);
+                tx.commit();
+            } else {
+                System.out.println("Student or Course not found.");
+            }
+        } catch (HibernateException exception) {
+            if (tx != null) tx.rollback();
             exception.printStackTrace();
         } finally {
             s.close();
