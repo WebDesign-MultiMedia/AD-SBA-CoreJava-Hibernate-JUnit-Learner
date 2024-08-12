@@ -1,5 +1,7 @@
 package sba.sms.utils;
 
+
+
 import lombok.Getter;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
@@ -22,16 +24,19 @@ public class HibernateUtil {
     }
 
     /**
-     * @Getter builds a standard getter method for the object
+     * Getter builds a standard getter method for the object
      * sessionFactory.
      */
+
+
     @Getter
     private static SessionFactory sessionFactory = buildSessionFactory();
+
 
     /**
      * Method builds a session factory from the 'hibernate.cfg.xml' file
      * in the 'resources' folder and returns a sessionFactory object.
-     * @return
+     * return
      */
     private static SessionFactory buildSessionFactory()
     {
