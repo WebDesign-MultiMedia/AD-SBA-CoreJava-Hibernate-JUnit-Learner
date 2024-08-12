@@ -13,7 +13,7 @@ import sba.sms.utils.HibernateUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+
 
 /**
  * StudentService is a concrete class. This class implements the
@@ -57,7 +57,8 @@ public class StudentService implements StudentI {
             tx.commit();
         } catch (HibernateException exception){
             if(tx != null) tx.rollback();
-            exception.printStackTrace();
+            exception.
+                    printStackTrace();
         } finally {
             s.close();
         }
@@ -124,7 +125,7 @@ public class StudentService implements StudentI {
                     "ON s.email = sc.student_email " +
                     "WHERE s.email = ?";
             NativeQuery<Course> studentCourses = s.createNativeQuery(nativeGetStudentCourses, Course.class);
-            studentCourses.setParameter("email", email);
+            studentCourses.setParameter(1, email);
             courseList = studentCourses.getResultList();
             tx.commit();
         } catch (HibernateException exception){

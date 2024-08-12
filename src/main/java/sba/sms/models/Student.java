@@ -12,14 +12,13 @@ import java.util.Set;
  * Student is a POJO, configured as a persistent class that represents (or maps to) a table
  * name 'student' in the database. A Student object contains fields that represent student
  * login credentials and a join table containing a registered student's email and course(s)
- * data. The Student class can be viewed as the owner of the bi-directional relationship.
+ * data. The Student class can be viewed as the owner of the relationship.
  * Implement Lombok annotations to eliminate boilerplate code.
  */
 @NoArgsConstructor
-@AllArgsConstructor
 
-@Setter
-@Getter
+
+
 @Table (name = "student")
 @Entity
 public class Student {
@@ -42,11 +41,51 @@ public class Student {
     )
     private Set<Course> courses = new HashSet<>();
 
+
     //
-    public Student(String email, String name, String password){
+    public Student(String email, String name, String password, Set<Course> courses){
         this.email = email;
         this.name = name;
         this.password = password;
+        this.courses = courses;
+    }
+
+    public Student(String email, String name, String password) {
+        this.email = email;
+        this.name = name;
+        this.password = password;
+    }
+
+    public String getEmail(){
+        return email;
+    }
+
+    public void setEmail(String email){
+        this.email = email;
+    }
+
+    public String getName(){
+        return name;
+    }
+
+    public void setName(String name){
+        this.name = name;
+    }
+
+    public String getPassword(){
+        return password;
+    }
+
+    public void setPassword(String password){
+        this.password = password;
+    }
+
+    public Set<Course> getCourses(){
+        return courses;
+    }
+
+    public void setCourses(Set<Course> courses){
+        this.courses = courses;
     }
 
     public static void addCourse(Course courseById) {
@@ -78,9 +117,7 @@ public class Student {
         return Objects.hash(email, name, password);
     }
 
-    public boolean isEnrolledInCourse(Course course){
-        return this.courses.contains(course);
-    }
+
 
     }
 
